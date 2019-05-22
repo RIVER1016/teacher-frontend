@@ -9,185 +9,301 @@
 			</div>
 		</div>
 		<div class="ant-divider ant-divider-horizontal"></div>
-		<div class="main">
-			<div class="problem-title">
-				<a-icon class="title-icon" type="caret-right" /><h3>题目标题</h3>
-				<input type="text" class="ant-input">
-			</div>
-			<div class="problem-block">
-				<a-icon class="title-icon" type="caret-right" /><h3>题目类型</h3>
-				<div class="ant-radio-group ant-radio-group-outline ant-radio-group-default" style="margin-bottom: 16px;">
-					<label class="ant-radio-button-wrapper radio-button-wrapper">
-						<span class="ant-radio-button radio-button">
-							<input type="radio" class="ant-radio-button-input" value="practice">
-						</span>
-						<span id="practice_type">练习题</span>
-					</label>
-					<label class="ant-radio-button-wrapper radio-button-wrapper">
-						<span class="ant-radio-button radio-button">
-							<input type="radio" class="ant-radio-button-input" value="exam">
-						</span>
-						<span id="exam_type">考试题</span>
-					</label>
-					<label class="ant-radio-button-wrapper radio-button-wrapper">
-						<span class="ant-radio-button radio-button">
-							<input type="radio" class="ant-radio-button-input" value="homework">
-						</span>
-						<span id="homework_type">作业题</span>
-					</label>
+		<div class="bg">
+			<div class="main">
+				<div class="problem-title">
+					<a-icon class="title-icon" type="caret-right" /><h3>题目标题</h3>
+					<input type="text" class="ant-input">
 				</div>
-			</div>
-			<div class="problem-block" id="multi-textarea">
-				<a-icon class="title-icon" type="caret-right" /><h3>题目描述</h3>
-               <editor></editor>
-			</div>
-			<div class="problem-block">
-				<a-icon class="title-icon" type="caret-right" /><h3>附件</h3>
-				<button type="button" class="ant-btn ant-btn-default">
-					<i class="anticon anticon-upload">
-						<svg viewBox="64 64 896 896" data-icon="upload" width="1em" height="1em" fill="currentColor" aria-hidden="true" class="">
-							<path d="M400 317.7h73.9V656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V317.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 163a8 8 0 0 0-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z">
-							</path>
-						</svg>
-					</i>
-					<span>上传附件</span></button>
-			</div>
-			<div class="problem-block" id="limit">
-				<div class="problem-limit">
-					<a-icon class="title-icon" type="caret-right" /><h3>内存限制(MB)</h3>
-					<input type="text" class="ant-input limit-input" name="memory_limit">
+				<div class="problem-block">
+					<a-icon class="title-icon" type="caret-right" /><h3>题目类型</h3>
+					<a-radio-group  @change="selectType">
+				      <a-radio-button value="practice" class="red-btn">练习题</a-radio-button>
+				      <a-radio-button value="exam" class="yellow-btn">考试题</a-radio-button>
+				      <a-radio-button value="homework" class="blue-btn">作业题</a-radio-button>
+				    </a-radio-group>
 				</div>
-				<div class="problem-limit">
-					<a-icon class="title-icon" type="caret-right" /><h3>时间限制(MS)</h3>
-					<input type="text" class="ant-input limit-input" name="time_limit">
+				<div class="problem-block" id="multi-textarea">
+					<a-icon class="title-icon" type="caret-right" /><h3>题目描述</h3>
+	               <editor></editor>
 				</div>
-				<div class="problem-limit">
-					<a-icon class="title-icon" type="caret-right" /><h3>输入限制(行)</h3>
-					<input type="text" class="ant-input limit-input" name="input_limit">
+				<div class="problem-block">
+					<a-icon class="title-icon" type="caret-right" /><h3>附件</h3>
+					<a-upload action="//jsonplaceholder.typicode.com/posts/" :defaultFileList="defaultFileList">
+					    <a-button>
+					      <a-icon type="upload" /> 上传附件
+					    </a-button>
+					  </a-upload>
 				</div>
-				<div class="problem-limit">
-					<a-icon class="title-icon" type="caret-right" /><h3>输出限制(行)</h3>
-					<input type="text" class="ant-input limit-input" name="output_limit">
-				</div>
-			</div>
-			<div class="problem-block">
-				<a-icon class="title-icon" type="caret-right" /><h3>测例输入与输出</h3>
-				<div class="test-span">
-					<div class="test-span-text">
-						<a-icon class="title-icon test-input-span" type="caret-right" /><h3>测例标签</h3>
+				<div class="problem-block" id="limit">
+					<div class="problem-limit">
+						<a-icon class="title-icon" type="caret-right" /><h3>内存限制(MB)</h3>
+						<input type="text" class="ant-input limit-input" name="memory_limit">
 					</div>
-					<input type="text" class="ant-input span-input" name="test_span" placeholder="例：边界条件" >
+					<div class="problem-limit">
+						<a-icon class="title-icon" type="caret-right" /><h3>时间限制(MS)</h3>
+						<input type="text" class="ant-input limit-input" name="time_limit">
+					</div>
+					<div class="problem-limit">
+						<a-icon class="title-icon" type="caret-right" /><h3>输入限制(行)</h3>
+						<input type="text" class="ant-input limit-input" name="input_limit">
+					</div>
+					<div class="problem-limit">
+						<a-icon class="title-icon" type="caret-right" /><h3>输出限制(行)</h3>
+						<input type="text" class="ant-input limit-input" name="output_limit">
+					</div>
 				</div>
-				<!--
-                	作者：754159742@qq.com
-                	时间：2019-05-21
-                	描述：需要代码输入框插件
-                -->
-		             <button type="button" class="ant-btn ant-btn-primary" >
+				<div class="problem-block">
+					<a-icon class="title-icon" type="caret-right" /><h3>测例输入与输出</h3>
+					<div class="test-span">
+						<div class="test-span-text">
+							<a-icon class="title-icon test-input-span" type="caret-right" /><h3>测例标签</h3>
+						</div>
+						<input type="text" class="ant-input span-input" name="test_span" placeholder="例：边界条件" v-model="test_span" >
+					</div>
+					<div class="in-out">
+						<a-icon class="title-icon test-input-span" type="caret-right" /><h3>输入</h3>
+						<a-textarea placeholder="输入" :autosize="{ minRows: 2, maxRows: 6}" class="in-out-textarea" v-model="test_input"/>
+					</div>
+					<div class="in-out">
+						<a-icon class="title-icon test-input-span" type="caret-right" /><h3>输出</h3>
+						<a-textarea placeholder="输出" :autosize="{ minRows: 2, maxRows: 6}" class="in-out-textarea" v-model="test_output"/>
+					</div>
+		            <button type="button" class="ant-btn ant-btn-primary confirm-btn" @click="handleAdd1">
 		             	<span>添加>></span>
 		             </button>
-			</div>
-			<div class="problem-block">
-				<a-icon class="title-icon" type="caret-right" /><h3>样例输入与输出</h3>
-				<div class="test-span">
-					<div class="test-span-text">
-						<a-icon class="title-icon test-input-span" type="caret-right" /><h3>样例标签</h3>
+		             <a-table bordered :dataSource="dataSource1" :columns="columns1" style="width: 80%;margin-top: 1%;">
+					      <template slot="input" slot-scope="text, record">
+					        <editable-cell :text="text" @change="onCellChange(record.key, 'input', $event)"/>
+					      </template>
+					      <template slot="output" slot-scope="text, record">
+					        <editable-cell :text="text" @change="onCellChange(record.key, 'output', $event)"/>
+					      </template>
+					      <template slot="span" slot-scope="text, record">
+					        <editable-cell :text="text" @change="onCellChange(record.key, 'span', $event)"/>
+					      </template>
+					      <template slot="operation" slot-scope="text, record">
+					        <a-popconfirm
+					          v-if="dataSource1.length"
+					          title="确认删除?"
+					          @confirm="() => onDelete1(record.key)">
+					          <a href="javascript:;">删除</a>
+					        </a-popconfirm>
+					      </template>
+				    </a-table>
+				</div>
+				<div class="problem-block">
+					<a-icon class="title-icon" type="caret-right" /><h3>样例输入与输出</h3>
+					<div class="test-span">
+						<div class="test-span-text">
+							<a-icon class="title-icon test-input-span" type="caret-right" /><h3>样例标签</h3>
+						</div>
+						<input type="text" class="ant-input span-input" name="test_span" placeholder="例：边界条件" v-model="sample_span">
 					</div>
-					<input type="text" class="ant-input span-input" name="test_span" placeholder="例：边界条件" >
-				</div>
-                <div class="test-input-output">
-		             <button type="button" class="ant-btn ant-btn-primary" >
-		             	<span>添加>></span>
-		             </button>
-		             <button type="button" class="ant-btn ant-btn-default" >
-		             	<span>预览</span>
-		             </button>
-	             </div>
-			</div>
-			<div class="problem-block">
-				<a-icon class="title-icon" type="caret-right" /><h3>题目标签</h3>
-				<div role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-controls="6bd2c6f4-5646-4511-d3de-c4868f4f3148" class="ant-select-selection ant-select-selection--multiple">
-					<div class="ant-select-selection__rendered">
-						<div unselectable="on" class="ant-select-selection__placeholder" style="display: none; user-select: none;">
-							Please select</div>
-							<ul>
-								<li unselectable="on" role="presentation" title="a1" class="ant-select-selection__choice" style="user-select: none;">
-									<div class="ant-select-selection__choice__content">a1</div>
-									<span class="ant-select-selection__choice__remove">
-										<i class="ant-select-remove-icon anticon anticon-close">
-											<svg viewBox="64 64 896 896" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true" class="">
-												<path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z">
-												</path>
-											</svg>
-										</i>
-									</span>
-								</li>
-								<li class="ant-select-search ant-select-search--inline">
-									<div class="ant-select-search__field__wrap">
-										<input autocomplete="off" value="" class="ant-select-search__field" style="">
-										<span class="ant-select-search__field__mirror">&nbsp;</span>
-									</div>
-								</li>
-							</ul>
+					<div class="in-out">
+						<a-icon class="title-icon test-input-span" type="caret-right" /><h3>输入</h3>
+						<a-textarea placeholder="输入" :autosize="{ minRows: 2, maxRows: 6}" class="in-out-textarea" v-model="sample_input"/>
 					</div>
+					<div class="in-out">
+						<a-icon class="title-icon test-input-span" type="caret-right" /><h3>输出</h3>
+						<a-textarea placeholder="输出" :autosize="{ minRows: 2, maxRows: 6}" class="in-out-textarea" v-model="sample_output"/>
+					</div>
+	                <div class="test-input-output">
+			             <button type="button" class="ant-btn ant-btn-primary confirm-btn" @click="handleAdd2">
+			             	<span>添加>></span>
+			             </button>
+		             </div>
+		             <a-table bordered :dataSource="dataSource2" :columns="columns2" style="width: 80%;margin-top: 1%;">
+					      <template slot="input2" slot-scope="text, record">
+					        <editable-cell :text="text" @change="onCellChange(record.key, 'input2', $event)"/>
+					      </template>
+					      <template slot="output2" slot-scope="text, record">
+					        <editable-cell :text="text" @change="onCellChange(record.key, 'output2', $event)"/>
+					      </template>
+					      <template slot="span2" slot-scope="text, record">
+					        <editable-cell :text="text" @change="onCellChange(record.key, 'span2', $event)"/>
+					      </template>
+					      <template slot="operation2" slot-scope="text, record">
+					        <a-popconfirm
+					          v-if="dataSource2.length"
+					          title="确认删除?"
+					          @confirm="() => onDelete2(record.key)">
+					          <a href="javascript:;">删除</a>
+					        </a-popconfirm>
+					      </template>
+				    </a-table>
 				</div>
-			</div>	
-			<div class="problem-block">
-				<a-icon class="title-icon" type="caret-right" /><h3>状态</h3>
-				<div class="ant-radio-group ant-radio-group-outline ant-radio-group-default" style="margin-bottom: 16px;">
-					<label class="ant-radio-button-wrapper ">
-						<span class="ant-radio-button">
-							<input type="radio" class="ant-radio-button-input" value="high">
-						</span>
-						<span id="public">公开</span>
-					</label>
-					<label class="ant-radio-button-wrapper">
-						<span class="ant-radio-button">
-							<input type="radio" class="ant-radio-button-input" value="medium">
-						</span>
-						<span id="private">不公开</span>
-					</label>
-				</div>
-				<div class="ant-radio-group ant-radio-group-outline ant-radio-group-default second-radio-group" style="margin-bottom: 16px;">
-					<label class="ant-radio-button-wrapper radio-button-wrapper">
-						<span class="ant-radio-button radio-button">
-							<input type="radio" class="ant-radio-button-input" value="high">
-						</span>
-						<span id="high">High</span>
-					</label>
-					<label class="ant-radio-button-wrapper radio-button-wrapper">
-						<span class="ant-radio-button radio-button">
-							<input type="radio" class="ant-radio-button-input" value="medium">
-						</span>
-						<span id="medium">Medium</span>
-					</label>
-					<label class="ant-radio-button-wrapper radio-button-wrapper">
-						<span class="ant-radio-button radio-button">
-							<input type="radio" class="ant-radio-button-input" value="low">
-						</span>
-						<span id="low">Low</span>
-					</label>
-				</div>
-			</div>	
-			<div class="btn-block">
-				<button type="button" class="ant-btn ant-btn-primary" >
-	             	<span>保存</span>
-	             </button>
-				<button type="button" class="ant-btn ant-btn-default" id="preread">
-	             	<span>预览</span>
-	             </button>
-            </div>
+				
+				<div class="problem-block">
+					<a-icon class="title-icon" type="caret-right" /><h3>题目标签</h3>
+				    <a-select
+				      mode="tags"
+				      placeholder="Please select"
+				      style="width: 220px"
+				      @change="handleChange"
+				      allowClear="true"
+				    >
+				     <a-select-option value="C">C</a-select-option>
+				     <a-select-option value="C++">C++</a-select-option>
+				     <a-select-option value="Java">Java</a-select-option>
+				     <a-select-option value="Python">Python</a-select-option>
+				     <a-select-option value="algorithm">算法导论</a-select-option>
+				     <a-select-option value="data strutrue">数据结构</a-select-option>
+				    </a-select>
+				</div>	
+				<div class="problem-block">
+					<a-icon class="title-icon" type="caret-right" /><h3>状态</h3>
+					<a-radio-group  @change="selectStatus">
+				      <a-radio-button value="public">公开</a-radio-button>
+				      <a-radio-button value="private">不公开</a-radio-button>
+				    </a-radio-group>
+				    <a-radio-group @change="selectDifficult" class="second-radio-group">
+				      <a-radio-button value="high" class="red-btn">High</a-radio-button>
+				      <a-radio-button value="medium" class="yellow-btn">Medium</a-radio-button>
+				      <a-radio-button value="low" class="blue-btn">Low</a-radio-button>
+				    </a-radio-group>
+				</div>	
+				<div class="btn-block">
+					<button type="button" class="ant-btn ant-btn-primary" >
+		             	<span>保存</span>
+		             </button>
+	            </div>
+			</div>
 		</div>
-	</div>
+		</div>
 </template>
 
 <script>
-import Editor from './Editor'
+import Editor from './Editor' 
+import EditableCell from './EditableCell'
 	
 export default {
 	name: 'multi-textarea',
 	components:{
-		Editor
+		Editor,
+		EditableCell
+	},
+	data () {
+	    return {
+	    	  test_span: '',
+	    	  test_input: '',
+	    	  test_output: '',
+	    	  sample_span: '',
+	    	  sample_input: '',
+	    	  sample_output: '',
+	      dataSource1: [],
+	      dataSource2: [],
+	      count1: 0,
+	      count2: 0,
+	      columns1: [{
+	        title: '输入',
+	        dataIndex: 'input',
+	        width: '30%',
+	        scopedSlots: { customRender: 'input' },
+	      }, {
+	        title: '输出',
+	        dataIndex: 'output',
+	        width: '30%',
+	        scopedSlots: { customRender: 'output' },
+	      }, {
+	        title: '标签',
+	        dataIndex: 'span',
+	        width: '30%',
+	        scopedSlots: { customRender: 'span' },
+	      }, {
+	        title: '操作',
+	        dataIndex: 'operation',
+	        scopedSlots: { customRender: 'operation' },
+	      }],
+	      columns2: [{
+	        title: '输入',
+	        dataIndex: 'input2',
+	        width: '30%',
+	        scopedSlots: { customRender: 'input2' },
+	      }, {
+	        title: '输出',
+	        dataIndex: 'output2',
+	        width: '30%',
+	        scopedSlots: { customRender: 'output2' },
+	      }, {
+	        title: '标签',
+	        dataIndex: 'span2',
+	        width: '30%',
+	        scopedSlots: { customRender: 'span2' },
+	      }, {
+	        title: '操作',
+	        dataIndex: 'operation2',
+	        scopedSlots: { customRender: 'operation2' },
+	      }],
+	    }
+	  },
+  	methods: {
+	    	handleChange(value) {
+	      console.log(`Selected: ${value}`);
+	    },
+	    popupScroll(){
+	      console.log('popupScroll');
+		},
+		selectStatus (value) {
+		  console.log(`Selcted: ${value}`);
+		},
+		selectDifficult(value){
+		  console.log(`Selcted: ${value}`);
+		},
+		selectType(value){
+		 console.log(`Selcted: ${value}`);
+		},
+		handleChange({file, fileList}) {
+	      if (file.status !== 'uploading') {
+	        console.log(file, fileList);
+	      }
+		 },
+	  	 onCellChange1(key, dataIndex, value) {
+	        const dataSource1 = [...this.dataSource1]
+	        const target = dataSource1.find(item => item.key === key)
+	        if (target) {
+	          target[dataIndex] = value
+	          this.dataSource1 = dataSource1
+	        }
+	     },
+	  	  onDelete1 (key) {
+		      const dataSource1 = [...this.dataSource1]
+		      this.dataSource1 = dataSource1.filter(item => item.key !== key)
+		   },
+		   handleAdd1 () {
+		      const { count1, dataSource1 } = this
+		      const newData = {
+		        key: count1,
+		        input: this.test_input,
+		        output: this.test_output,
+		        span: this.test_span,
+		      }
+		      this.dataSource1 = [...dataSource1, newData]
+		      this.count1 = count1 + 1
+		    },
+		    onCellChange2(key, dataIndex, value) {
+		        const dataSource2 = [...this.dataSource2]
+		        const target = dataSource2.find(item => item.key === key)
+		        if (target) {
+		          target[dataIndex] = value
+		          this.dataSource2 = dataSource2
+		        }
+		     },
+		    onDelete2 (key) {
+		      const dataSource2 = [...this.dataSource2]
+		      this.dataSource2 = dataSource2.filter(item => item.key !== key)
+		   },
+		    handleAdd2 () {
+		      const { count2, dataSource2 } = this
+		      const newData = {
+		        key: count2,
+		        input2: this.sample_input,
+		        output2: this.sample_output,
+		        span2: this.sample_span,
+		      }
+		      this.dataSource2 = [...dataSource2, newData]
+		      this.count2 = count2 + 1
+		    },
 	}
 }
 </script>
@@ -207,6 +323,12 @@ export default {
 }
 .main{
 	margin-left: 3%;
+	display: block;
+}
+.bg{
+	background-color: white;
+	padding-top: 2%;
+	padding-bottom: 2%;
 }
 .problem-title{
 	margin-top: 3%;
@@ -221,12 +343,6 @@ export default {
 .problem-block{
 	margin-top: 2%;
 	display: block;
-}
-.radio-button{
-	height: 10px;
-}
-.radio-button-wrapper{
-	height: 50px;
 }
 #practice_type,#high{
 	color: red;
@@ -250,6 +366,12 @@ export default {
 	width: 10%;
 	height: 2%;
 }
+.in-out{
+	margin-left: 3%;
+	margin-top: 1%;
+	width: 80%;
+	display: block;
+}
 .span-input{
 	width: 15%;
 }
@@ -262,11 +384,23 @@ export default {
 .btn-block{
 	margin-top: 3%;
 }
-.ant-select-selection{
-	width: 20%;
-	height: 100px;
-}
 #limit{
 	display: flex;
 }
+.red-btn{
+	color: red;
+}
+.yellow-btn{
+	color: yellow;
+}
+.blue-btn{
+	color: deepskyblue;
+}
+.confirm-btn{
+	margin-top: 1%;
+}
+.in-out-textarea{
+	width: 60%;
+}
+
 </style>

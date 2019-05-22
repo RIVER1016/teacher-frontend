@@ -1,7 +1,9 @@
 <template>
     <div>
         <div ref="editor" style="text-align:left"></div>
-        <button v-on:click="getContent">查看内容</button>
+        <button type="button" class="ant-btn ant-btn-primary" v-on:click="getContent" style="margin-top: 1%;">
+       	 	<span>查看内容</span>
+        </button>
     </div>
 </template>
 
